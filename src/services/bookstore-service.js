@@ -4,4 +4,6 @@ class BookstoreService {
 		return [];
 	}
 
-}
+};
+
+export default BookstoreService;
