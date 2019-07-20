@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './app-header.sass'
 
 const AppHeader = ({ numItems, total }) => {
 	return(
 		<header className="app-header row">
-			<a className="logo text-dark" href="#">ReStore</a>
-			<a className="cart-info">
+			<Link className="logo text-dark" to="/">ReStore</Link>
+			<div className="cart-info">
 				<i className="cart-icon fa fa-shopping-cart" />
 				{numItems} товаров (${total})
-			</a>
+			</div>
 		</header>
 	);
 };

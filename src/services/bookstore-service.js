@@ -1,7 +1,6 @@
 class BookstoreService {
-
-	getBooks() {
-		return [
+	constructor() {
+		this.data = [
 			{
 				id: 1,
 				title: 'Hobbit',
@@ -17,6 +16,14 @@ class BookstoreService {
 				coverImage: 'https://thumbs.dfs.ivi.ru/storage9/contents/b/1/7e80a5aee097c3879d7cb2c9c46e13.jpg',
 			}
 		];
+	}
+
+	getBooks() {
+		return new Promise((resolve) => {  //возвращаем экземпляр класса Promise
+			setTimeout(() => {	//который вызывает функцию setTimeout
+				resolve(this.data)	//она в свою очередь вызывает переданный resolve
+			}, 700);								//через 700 мс
+		});
 	}
 
 };

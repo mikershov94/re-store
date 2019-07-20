@@ -10,7 +10,7 @@ const BookListItem = ({ book }) => {
 				<img src={coverImage} alt="coverImage" />
 			</div>
 			<div className="flex-column ml-3 mt-2">
-				<a className="book-title" href="#">{title}</a>
+				<div className="book-title">{title}</div>
 				<div>{author}</div>
 				<div className="book-price">${price}</div>
 				<button className="btn btn-info btn-card">

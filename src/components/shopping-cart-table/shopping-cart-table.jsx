@@ -8,11 +8,13 @@ const ShoppingCartTable = () => {
 			<h2>Ваш заказ</h2>
 			<table className="table">
 				<thead>
-					<th>#</th>
-					<th>Товар</th>
-					<th>Количество</th>
-					<th>Цена</th>
-					<th>Действие</th>
+					<tr>
+						<th>#</th>
+						<th>Товар</th>
+						<th>Количество</th>
+						<th>Цена</th>
+						<th>Действие</th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr>
