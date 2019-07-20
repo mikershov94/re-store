@@ -7,10 +7,10 @@ const AppHeader = ({ numItems, total }) => {
 	return(
 		<header className="app-header row">
 			<Link className="logo text-dark" to="/">ReStore</Link>
-			<div className="cart-info">
+			<Link className="cart-info text-dark" to="/cart">
 				<i className="cart-icon fa fa-shopping-cart" />
 				{numItems} товаров (${total})
-			</div>
+			</Link>
 		</header>
 	);
 };
