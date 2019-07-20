@@ -19,9 +19,13 @@ class BookstoreService {
 	}
 
 	getBooks() {
-		return new Promise((resolve) => {  //возвращаем экземпляр класса Promise
-			setTimeout(() => {	//который вызывает функцию setTimeout
-				resolve(this.data)	//она в свою очередь вызывает переданный resolve
+		return new Promise((resolve, reject) => {  //возвращаем экземпляр класса Promise
+			setTimeout(() => {
+				if (Math.random() > 0.75) {
+					resolve(this.data);
+				} else {
+					reject(new Error('Something hapenned!'));
+				};
 			}, 700);								//через 700 мс
 		});
 	}
