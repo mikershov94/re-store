@@ -1,7 +1,7 @@
 import React from 'react';
 import BookListItem from './../book-list-item';
 import { connect } from 'react-redux';
-import { booksLoaded, booksRequested, errorLoading } from './../../actions';
+import { fetchBooks } from './../../actions';
 import { withBookstoreService } from './../hoc';
 import { compose } from './../../utils';
 import Spinner from './../spinner';
@@ -12,11 +12,7 @@ import './book-list.sass';
 class BookList extends React.Component {
 
 	componentDidMount() {
-		const { bookstoreService, booksLoaded, booksRequested, errorLoading } = this.props;	//деструктурируем объект-сервис (экземпляр класса работы с API) из props
-		booksRequested();
-		bookstoreService.getBooks()
-			.then((data) => booksLoaded(data))
-			.catch((err) => errorLoading(err));
+		this.props.fetchBooks();
 	}
 
 	render() {
@@ -54,17 +50,10 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { bookstoreService } = ownProps;
 	return {
-		booksLoaded: (newBooks) => {
-			dispatch(booksLoaded(newBooks));
-		},
-		booksRequested: () => {
-			dispatch(booksRequested());
-		},
-		errorLoading: (error) => {
-			dispatch(errorLoading(error));
-		},
+		fetchBooks: fetchBooks(bookstoreService, dispatch),
 	}
 };
 
