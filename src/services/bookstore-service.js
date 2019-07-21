@@ -21,7 +21,7 @@ class BookstoreService {
 	getBooks() {
 		return new Promise((resolve, reject) => {  //возвращаем экземпляр класса Promise
 			setTimeout(() => {
-				if (Math.random() > 0.75) {
+				if (Math.random() < 0.75) {
 					resolve(this.data);
 				} else {
 					reject(new Error('Something hapenned!'));
