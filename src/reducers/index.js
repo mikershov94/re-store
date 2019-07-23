@@ -2,21 +2,8 @@ const initialState = {
 	books: [],
 	loading: true,
 	error: null,
-	cartItems: [
-		{
-			id: 1,
-			name: 'Book 1',
-			count: 3,
-			cost: 150,
-		},
-		{
-			id: 2,
-			name: 'Book 2',
-			count: 2,
-			cost: 70,
-		},
-	],
-	orderTotal: 220,
+	cartItems: [],
+	orderTotal: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,7 +28,23 @@ const reducer = (state = initialState, action) => {
 				books: [],
 				loading: false,
 				error: action.payload,
+			};
+		case 'ADD_BOOK_TO_CART':
+			const bookId = action.payload;
+			const book = state.books.find((book) => book.id === bookId)
+			const newItem = {
+				id: book.id,
+				name: book.title,
+				count: 1,
+				cost: book.price,
 			}
+			return {
+				...state,
+				cartItems: [
+					...state.cartItems,
+					newItem,
+				],
+			};
 		default:
 			return state;
 	}

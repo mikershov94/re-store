@@ -2,7 +2,7 @@ import React from 'react';
 
 import './book-list-item.sass';
 
-const BookListItem = ({ book }) => {
+const BookListItem = ({ book, onAddToCart }) => {
 	const { title, author, coverImage, price } = book;
 	return(
 		<div className="d-flex booklist-item">
@@ -13,7 +13,8 @@ const BookListItem = ({ book }) => {
 				<div className="book-title">{title}</div>
 				<div>{author}</div>
 				<div className="book-price">${price}</div>
-				<button className="btn btn-info btn-card">
+				<button className="btn btn-info btn-card"
+								onClick={onAddToCart} >
 					Добавить в корзину
 				</button>
 			</div>
