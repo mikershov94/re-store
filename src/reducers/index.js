@@ -72,6 +72,16 @@ const reducer = (state = initialState, action) => {
 				...state,
 				cartItems: updateCartItems(state.cartItems, newItem, itemIndex)
 			};
+		case 'DELETE_BOOKS_FROM_CART':
+			const itemId = action.payload;
+			const idx = state.cartItems.findIndex((item) => item.id === itemId);
+			const after = state.cartItems.slice(0, idx);
+			const before = state.cartItems.slice(idx + 1);
+
+			return {
+				...state,
+				cartItems: [ ...before, ...after ],
+			};
 
 		default:
 			return state;

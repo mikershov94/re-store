@@ -32,7 +32,15 @@ const addBookToCart = (idBook) => {
 	};
 };
 
+const deleteBooksFromCart = (idBook) => {
+	return {
+		type: 'DELETE_BOOKS_FROM_CART',
+		payload: idBook,
+	};
+};
+
 export {
 	fetchBooks,
 	addBookToCart,
+	deleteBooksFromCart,
 }

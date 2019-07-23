@@ -1,3 +1,5 @@
+import { deleteBooksFromCart } from './../../actions';
+
 const mapStateToProps = ({ cartItems, orderTotal }) => {
 	return {
 		items: cartItems,
@@ -5,7 +7,7 @@ const mapStateToProps = ({ cartItems, orderTotal }) => {
 	};
 };
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		onIncrease: (id) => {
 			console.log(`Increase ${id}`);
@@ -14,7 +16,7 @@ const mapDispatchToProps = () => {
 			console.log(`Decrease ${id}`);
 		},
 		onDelete: (id) => {
-			console.log(`Delete ${id}`);
+			dispatch(deleteBooksFromCart(id));
 		},
 	};
 };

@@ -6,7 +6,13 @@ import { mapStateToProps, mapDispatchToProps } from './redux-components';
 class ShoppingCartContainer extends React.Component {
 
 	render() {
-		const { items, total, onIncrease, onDecrease, onDelete } = this.props;
+		const { 
+			items,
+			total,
+			onIncrease,
+			onDecrease,
+			onDelete
+		} = this.props;
 		return <ShoppingCartTable items={items}
 															total={total}
 															onIncrease={onIncrease}
