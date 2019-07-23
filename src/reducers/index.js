@@ -7,7 +7,14 @@ const initialState = {
 };
 
 const updateCartItems = (cartItems, item, idx) => {
-	if (idx < 0) {
+	if (item.count === 0) {
+		return [
+			...cartItems.slice(0, idx),
+			...cartItems.slice(idx + 1)
+		];
+	}
+
+	if (idx === -1) {
 		return [
 			...cartItems,
 			item
@@ -21,7 +28,7 @@ const updateCartItems = (cartItems, item, idx) => {
 	};
 };
 
-const updateCartItem = (book, item = {}) => {
+const updateCartItem = (book, item = {}, quantity = 1) => {
 	const { 
 		id = book.id,
 	 	name = book.title,
@@ -30,10 +37,24 @@ const updateCartItem = (book, item = {}) => {
 	} = item;
 
 	return {
-		id: id,
-		name: name,
-		count: count + 1,
-		cost: cost + book.price 
+		id,
+		name,
+		count: count + quantity,
+		cost: cost + quantity * book.price,
+	};
+};
+
+const updateOrder = (state, bookId, quantity = 1) => {
+	const { books, cartItems } = state;
+	const book = books.find((book) => book.id === bookId)
+	const idx = cartItems.findIndex((item) => item.id === bookId);
+	const item = cartItems[idx];
+
+	const newItem = updateCartItem(book, item, quantity);
+
+	return {
+		...state,
+		cartItems: updateCartItems(cartItems, newItem, idx)
 	};
 };
 
@@ -61,27 +82,14 @@ const reducer = (state = initialState, action) => {
 				error: action.payload,
 			};
 		case 'ADD_BOOK_TO_CART':
-			const bookId = action.payload;
-			const book = state.books.find((book) => book.id === bookId)
-			const itemIndex = state.cartItems.findIndex((item) => item.id === bookId);
-			const item = state.cartItems[itemIndex];
+			return updateOrder(state, action.payload);
+
+		case 'DECREASE_BOOK_IN_CART': 
+			return updateOrder(state, action.payload, -1);
 			
-			const newItem = updateCartItem(book, item);
-
-			return {
-				...state,
-				cartItems: updateCartItems(state.cartItems, newItem, itemIndex)
-			};
 		case 'DELETE_BOOKS_FROM_CART':
-			const itemId = action.payload;
-			const idx = state.cartItems.findIndex((item) => item.id === itemId);
-			const after = state.cartItems.slice(0, idx);
-			const before = state.cartItems.slice(idx + 1);
-
-			return {
-				...state,
-				cartItems: [ ...before, ...after ],
-			};
+			const item = state.cartItems.find((item) => item.id === action.payload);
+			return updateOrder(state, action.payload, -item.count)
 
 		default:
 			return state;
