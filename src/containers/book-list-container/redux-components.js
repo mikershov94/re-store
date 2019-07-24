@@ -1,4 +1,5 @@
 import { fetchBooks, addBookToCart } from './../../actions';
+import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
 	return {
@@ -10,12 +11,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { bookstoreService } = ownProps;
-	return {
-		fetchBooks: fetchBooks(bookstoreService, dispatch),
-		onAddToCart: (id) => {
-			dispatch(addBookToCart(id));
-		},
-	}
+	return bindActionCreators({
+		fetchBooks: fetchBooks(bookstoreService),
+		onAddToCart: addBookToCart,
+	}, dispatch);
 };
 
 export {

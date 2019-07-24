@@ -1,4 +1,5 @@
 import { deleteBooksFromCart, addBookToCart, decreaseBookInCart } from './../../actions';
+import { bindActionCreators } from 'redux';
 
 const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal }}) => {
 	return {
@@ -8,17 +9,11 @@ const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal }}) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		onIncrease: (id) => {
-			dispatch(addBookToCart(id));
-		},
-		onDecrease: (id) => {
-			dispatch(decreaseBookInCart(id));
-		},
-		onDelete: (id) => {
-			dispatch(deleteBooksFromCart(id));
-		},
-	};
+	return bindActionCreators({
+		onIncrease: addBookToCart,
+		onDecrease: decreaseBookInCart,
+		onDelete: deleteBooksFromCart,
+	}, dispatch);
 };
 
 export {
